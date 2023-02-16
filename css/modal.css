@@ -172,6 +172,7 @@ main {
 .content {
   margin: 5% auto;
   width: 100%;
+  height: 81vh;
   max-width: 500px;
   animation-name: modalopen;
   animation-duration: var(--modal-duration);
@@ -208,7 +209,19 @@ input {
   font-size: 20px;
   height: 48px;
 }
-.formData[data-error]::after {
+.formSub[data-error]::after{
+  content: attr(data-error);
+  font-size: 0.4em;
+  color: #e54858;
+  display: block;
+  margin-top: 7px;
+  text-align: center;
+  line-height: 0.3;
+  opacity: 1;
+  transition: 0.3s;
+}
+
+.formData[data-error]::after{
   content: attr(data-error);
   font-size: 0.4em;
   color: #e54858;
@@ -220,7 +233,7 @@ input {
   opacity: 1;
   transition: 0.3s;
 }
-.formData[data-error-visible="true"]::after {
+.formData[data-error-visible="true"]::after, .formSub[data-error-visible="true"]::after {
   opacity: 1;
 }
 .formData[data-error-visible="true"] .text-control {

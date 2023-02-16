@@ -13,6 +13,13 @@ function editNav() {
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
+const formSub = document.querySelectorAll(".formSub");
+const condition = document.getElementById("checkbox1");
+const newsletter = document.getElementById("checkbox2");
+const submit = document.getElementById("sub");
+const modal = document.getElementById("modal");
+
+console.log(formSub);
 
 // DOM Input Form
 const chkblocate = document.getElementsByName("location");
@@ -47,10 +54,14 @@ function closeModal() {
 formData.forEach((input) => input.children[2].addEventListener("blur", displayDataError));
 formData.forEach((input) => input.children[2].addEventListener("focus", eraseDataError));
 
+formSub.forEach((input) => input.children[0].addEventListener("blur", eraseDataError));
+
 //set location
 chkblocate.forEach((loc) => loc.addEventListener("click", displayDataError));
 
 inpQtt[0].addEventListener("change", displayDataError);
+condition.addEventListener("click", switchData);
+newsletter.addEventListener("click", switchData);
 
 function displayDataError(e){
 
@@ -60,10 +71,8 @@ function displayDataError(e){
         formData[0].setAttribute("data-error", "Veuillez entrer 2 caractères ou plus pour le champ du nom.");
         formData[0].setAttribute("data-error-visible", "true");
         validForm["firstname"] = null;
-        console.log(validForm);
       } else {
         validForm["firstname"] = e.srcElement.value;
-        console.log(validForm);
       }
       break;
     case "last":
@@ -71,10 +80,8 @@ function displayDataError(e){
         formData[1].setAttribute("data-error", "Veuillez entrer 2 caractères ou plus pour le champ du nom.");
         formData[1].setAttribute("data-error-visible", "true");
         validForm["lastname"] = null;
-        console.log(validForm);
       } else {
         validForm["lastname"] = e.srcElement.value;
-        console.log(validForm);
       }
       break;
     case "email":
@@ -82,28 +89,41 @@ function displayDataError(e){
         formData[2].setAttribute("data-error", "Adresse non conforme.");
         formData[2].setAttribute("data-error-visible", "true");
         validForm["email"] = null;
-        console.log(validForm);
       } else {
         validForm["email"] = e.srcElement.value;
-        console.log(validForm);
       }
       break;
     case "birthdate":
       if(e.srcElement.value.length < 2){
         formData[3].setAttribute("data-error", "Vous devez entrer votre date de naissance.");
         formData[3].setAttribute("data-error-visible", "true");
-        console.log(validForm);
+        validForm["birthdate"] = null;
+      } else {
+        const birthdate = new Date(e.srcElement.value);
+        const birthdateMS = Date.now() - birthdate.getTime();
+        const age = Math.floor(birthdateMS / (365.25 * 24 * 60 * 60 * 1000));
+        if (age >= 18 && age <= 100) {
+          validForm["birthdate"] = e.srcElement.value;
+        } else {
+          formData[3].setAttribute("data-error", "Cette date ne correspond pas avec nos conditions");
+          formData[3].setAttribute("data-error-visible", "true");
+          validForm["birthdate"] = null;
+        }
       }
       break;
 
     case "quantity":
-      validForm["quantity"] = e.srcElement.value;
-      console.log(validForm);
+      if(!isNaN(parseInt(e.srcElement.value))){
+        validForm["tournament"] = parseInt(e.srcElement.value);
+      } else {
+        formData[4].setAttribute("data-error", "Ce n'est pas un nombre");
+        formData[4].setAttribute("data-error-visible", "true");
+        validForm["tournament"] = 0;
+      }
       break;
 
     case "location":
        validForm["locate"] = e.target.defaultValue;
-       console.log(validForm);
        break;
 
     default:
@@ -111,7 +131,36 @@ function displayDataError(e){
   }
 }
 
+function switchData(e){
+  switch (e.srcElement.id) {
+    case "checkbox1":
+      validForm["condition"] = !validForm["condition"];
+      break;
+
+    case "checkbox2":
+      validForm["newsletter"] = !validForm["newsletter"];
+      break;  
+  
+    default:
+      break;
+  }
+}
+
+// erase error message
 function eraseDataError(e){
   e.target.parentElement.removeAttribute("data-error");
   e.target.parentElement.removeAttribute("data-error-visible");
 }
+
+
+//verificaiton and validation form
+submit.addEventListener("click", function(e){
+  e.preventDefault();
+
+  if (validForm['firstname'] != null && validForm['lastname'] != null && validForm['email'] != null && validForm['birthdate'] != null && validForm['condition']) {
+    modal.innerHTML = "";
+  } else {
+    e.target.parentElement.setAttribute("data-error", "Des informations sont manquantes")
+    e.target.parentElement.setAttribute("data-error-visible", "true");
+  }
+});

@@ -55,7 +55,7 @@
       <div class="bground">
         <div class="content">
           <span id="btnClose" class="close"></span>
-          <div class="modal-body">
+          <div class="modal-body" id="modal">
             <form
               name="reserve"
               action="index.html"
@@ -71,7 +71,6 @@
                   id="first"
                   name="first"
                   minlength="2"
-                  required
                 /><br>
               </div>
               <div
@@ -83,7 +82,6 @@
                   id="last"
                   name="last"
                   minlength="2"
-                  required
                 /><br>
               </div>
               <div
@@ -94,7 +92,6 @@
                   type="email"
                   id="email"
                   name="email"
-                  required
                 /><br>
               </div>
               <div
@@ -105,13 +102,12 @@
                   type="date"
                   id="birthdate"
                   name="birthdate"
-                  required
                 /><br>
               </div>
               <div
                 class="formData">
                 <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99" value="0" required>
+                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99" value="0">
               </div>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
@@ -123,7 +119,6 @@
                   name="location"
                   value="New York"
                   checked
-                  required
                 />
                 <label class="checkbox-label" for="location1">
                   <span class="checkbox-icon"></span>
@@ -194,7 +189,7 @@
                   id="checkbox1"
                   checked
                 />
-                <label class="checkbox2-label" for="checkbox1" required>
+                <label class="checkbox2-label" for="checkbox1">
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
@@ -206,13 +201,16 @@
                 </label>
                 <br>
               </div>
-              <input
+              <div class="formSub">
+                <input
                 class="btn-submit"
+                id="sub"
                 type="submit"
                 class="button"
                 value="C'est parti"
-                onclick="checkInput()"
-              />
+                />
+              </div>
+              
             </form>
           </div>
         </div>
