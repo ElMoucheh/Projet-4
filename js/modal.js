@@ -162,10 +162,10 @@ submit.addEventListener("click", function(e){
 
   if (validForm['firstname'] != null && validForm['lastname'] != null && validForm['email'] != null && validForm['birthdate'] != null && validForm['condition']) {
     modal.innerHTML = "";
+    modal.style.height = "80vh";
     
     button.innerHTML = "Fermer";
     button.classList.add('btn-submit');
-    
 
     var h2 = document.createElement('h2');
     h2.innerHTML = "Merci pour votre insciption";
