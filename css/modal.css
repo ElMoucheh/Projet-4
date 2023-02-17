@@ -185,8 +185,12 @@ main {
 }
 
 .modal-body {
+  height: 100%;
   padding: 15px 8%;
   margin: 15px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 label {
@@ -328,6 +332,18 @@ input[data-error]::after {
   width: 3px;
   background-color: #fff;
 }
+
+.thanks{
+  text-align: center;
+  display: flex;
+  align-self: center;
+  margin-top: 30%;
+}
+
+.btn-close{
+  display: flex;
+}
+
 .close:before {
   transform: rotate(45deg);
 }
@@ -335,7 +351,7 @@ input[data-error]::after {
   transform: rotate(-45deg);
 }
 .btn-submit,
-.btn-signup {
+.btn-signup, .btn-close {
   background: #fe142f;
   display: block;
   margin: 0 auto;

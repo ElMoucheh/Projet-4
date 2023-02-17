@@ -154,11 +154,26 @@ function eraseDataError(e){
 
 
 //verificaiton and validation form
+var button = document.createElement('button');
+button.addEventListener("click", closeModal);
+
 submit.addEventListener("click", function(e){
   e.preventDefault();
 
   if (validForm['firstname'] != null && validForm['lastname'] != null && validForm['email'] != null && validForm['birthdate'] != null && validForm['condition']) {
     modal.innerHTML = "";
+    
+    button.innerHTML = "Fermer";
+    button.classList.add('btn-submit');
+    
+
+    var h2 = document.createElement('h2');
+    h2.innerHTML = "Merci pour votre insciption";
+    h2.classList.add("thanks");
+
+    modal.appendChild(h2);
+
+    modal.appendChild(button);
   } else {
     e.target.parentElement.setAttribute("data-error", "Des informations sont manquantes")
     e.target.parentElement.setAttribute("data-error-visible", "true");
